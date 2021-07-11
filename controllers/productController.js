@@ -13,7 +13,7 @@ async function getProducts(req, res) {
     }
 }
 
-// @desc Gets Single Products
+// @desc Gets Single Product
 // @route GET /api/products/:id
 async function getProduct(req, res, id) {
     try {
@@ -31,7 +31,28 @@ async function getProduct(req, res, id) {
     }
 }
 
+// @desc Creates Single Product
+// @route POST /api/products/
+async function createProduct(req, res) {
+    try {
+        const product = {
+            title: 'Test Product',
+            description: 'This is my product',
+            price: 100
+        }
+
+        const newProduct = await Product.create(product);
+
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify(newProduct));
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     getProducts,
-    getProduct
+    getProduct,
+    createProduct
 }
